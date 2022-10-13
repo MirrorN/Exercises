@@ -1,0 +1,17 @@
+{
+  "type": "module",
+  "name": "api-interface-demo",
+  "version": "1.0.0",
+  "description": "基于 MySQL 数据库 + Express 对外提供用户列表的 API 接口",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5"
+  }
+}
