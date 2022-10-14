@@ -5,7 +5,7 @@ import userRouter from './router/user_router.js'
 
 const app = express()
 app.use(cors())
-
+// 挂载路由
 app.use('/api', userRouter)
 
 app.listen(80, () => {
