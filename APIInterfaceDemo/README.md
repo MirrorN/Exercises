@@ -17,13 +17,13 @@
 4. 创建 user_ctrl 业务模块
 5. 创建 user_router 路由模块
 
+## 注意事项
 
+### 启用 ES6 语法
 
-### 创建项目基本结构
+使用 `npm init -y`初始化包配置管理文件，并在 `package.json` 中添加`"type":"module",`启用 ES6 语法
 
-新建项目文件夹，使用 `npm init -y`初始化包配置管理文件，并在 `package.json` 中添加`"type":"module",`启用 ES6 语法
-
-安装所需包：
+### 安装所需包
 
 ```
 npm i express@4.17.1 mysql2@2.2.5
