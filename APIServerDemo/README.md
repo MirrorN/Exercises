@@ -7,6 +7,9 @@ Node.js 服务器案例
 - express
 - cors
 - mysql
+- bcryptjs  -- 密码加密
+- @hapi/joi 第三方数据验证模块
+- @escook/express-joi 自动表单数据验证
 
 ### 项目目录结构
 
