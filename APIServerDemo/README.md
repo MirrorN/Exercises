@@ -8,8 +8,10 @@ Node.js 服务器案例
 - cors
 - mysql
 - bcryptjs  -- 密码加密
-- @hapi/joi 第三方数据验证模块
+- joi 第三方数据验证模块
 - @escook/express-joi 自动表单数据验证
+- jsonwebtoken   -- 生成 token
+- express-jwt -- 解析 token
 
 ### 项目目录结构
 
@@ -42,3 +44,6 @@ bcrypt.hashSync(明文密码， 随机盐长度(10))
 注意 `@hapi/joi`的安装现在已经变更为 `npm i joi`
 
 搭配全局错误中间件使用，注意全局错误级别中间件要放在所有路由之后
+
+
+

@@ -1,6 +1,8 @@
 /* 定义用户相关的路由处理函数 */
 import db from '../db/index.js'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import { jwtSecretKey, expiresIn } from '../config.js'
 
 
 
@@ -46,22 +48,39 @@ export function regUser(req, res) {
   })
 }
 
+/* 登录逻辑 */
 export function login(req, res) {
   const userinfo = req.body
   const sql = 'select * from ev_users where username=?'
-  db.query(sql, userInfo.username, (err, results) => {
+  db.query(sql, userinfo.username, (err, results) => {
     if (err) {
       return res.cc(err)
     }
+    // 没有查询到用户名  --- 注意 即使 return
     if (results.length !== 1) {
       return res.cc('登录失败！')
     }
 
-    // 验证密码
-    const compareResult = bcrypt.compareSync(userInfo.password, results[0].password)
+    // 验证密码 --- 使用 bcrypt 生成加密后的字符串与数据库中存储的结果进行比较
+    // 使用 bcrypt.compareSync() 方法进行对比
+    const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
     if (!compareResult) {
-      return res.cc('登录失败！')
+      return res.cc('密码错误！')
     }
+
+    // TODO 登录成功 生成 token 字符串
+    const user = { ...results[0], password: '', user_pic: '' }
+
+    // 用户信息加密生成 token
+    const tokenStr = jwt.sign(user, jwtSecretKey, { expiresIn: expiresIn })
+
+    // 将 token 响应给 客户端
+    res.send({
+      status: 0,
+      message: '登录成功！',
+      // 注意 Bearer 后面有个空格
+      token: 'Bearer ' + tokenStr
+    })
   })
 }
 

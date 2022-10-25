@@ -3,6 +3,8 @@ import express from 'express'
 import cors from 'cors'
 import userRouter from './router/user.js'
 import joi from 'joi'
+import expressJWT from 'express-jwt'
+import { jwtSecretKey } from './config.js'
 
 /* 创建服务器 */
 const app = express()
@@ -12,6 +14,8 @@ app.use(cors())
 
 /* 配置解析 application/x-www-form-urlencoded 格式的表单数据 */
 app.use(express.urlencoded({ extended: false }))
+
+
 
 /* 配置一个处理错误的全局中间件 */
 app.use((req, res, next) => {
@@ -26,6 +30,10 @@ app.use((req, res, next) => {
   next()
 })
 
+// 注意 进行 token 身份认证的时候需要用到 res.cc 方法响应错误信息 所以此处注册中间件的时候需在 错误处理中间件注册之后
+/* 解析 token 字符串的中间件 unless 指定哪些路径不需要 token 身份认证 */
+app.use(expressJWT({ secret: jwtSecretKey }).unless({ path: [/^\/api\//] }))
+
 // 注册用户路由模块
 app.use('/api', userRouter)
 
@@ -35,6 +43,11 @@ app.use((err, req, res, next) => {
   if (err instanceof joi.ValidationError) {
     // 注意类似的错误处理一定要 return 否则 连续调用两次 res.send() 会在服务器端报错
     return res.cc(err)
+  }
+
+  // token 身份认证失败错误
+  if (err.name === 'UnauthorizedError') {
+    return res.cc('身份认证失败！')
   }
   res.cc(err)
 })
