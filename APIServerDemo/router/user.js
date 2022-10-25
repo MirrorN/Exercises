@@ -3,7 +3,7 @@ import express from 'express'
 // 按需导入
 import { regUser, login } from '../router_handler/user.js'
 
-// 错误处理
+// 导入验证数据的中间件和规则对象
 import expressJoi from '@escook/express-joi'
 import { reg_login_schema } from '../schema/user.js'
 

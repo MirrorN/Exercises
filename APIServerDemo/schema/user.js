@@ -1,4 +1,4 @@
-import joi from '@hapi/joi'
+import joi from 'joi'
 
 /**
  * string() 值必须是字符串
@@ -16,11 +16,9 @@ const username = joi.string().alphanum().min(1).max(10).required()
 // 密码验证
 const password = joi.string().pattern(/^[\S]{6,12}$/).required()
 
-reg_login_schema = {
+export let reg_login_schema = {
   body: {
     username,
     password,
   },
 }
-
-export reg_login_schema
