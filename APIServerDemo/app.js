@@ -5,6 +5,7 @@ import userRouter from './router/user.js'
 import joi from 'joi'
 import expressJWT from 'express-jwt'
 import { jwtSecretKey } from './config.js'
+import userinfoRouter from './router/userinfo.js'
 
 /* 创建服务器 */
 const app = express()
@@ -36,6 +37,9 @@ app.use(expressJWT({ secret: jwtSecretKey }).unless({ path: [/^\/api\//] }))
 
 // 注册用户路由模块
 app.use('/api', userRouter)
+
+// 注册请求用户信息模块路由
+app.use('/my', userinfoRouter)
 
 // 全局错误级别中间件
 app.use((err, req, res, next) => {
