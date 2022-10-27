@@ -39,7 +39,7 @@ export function updateUserinfo(req, res) {
     if (results.affectedRows !== 1) {
       return res.cc('更新用户信息失败！')
     }
-    return res.cc('修改用户信息成功！', 0)
+    res.cc('修改用户信息成功！', 0)
   })
 }
 
@@ -50,10 +50,10 @@ export function updatePassword(req, res) {
   const sql = 'select * from  ev_users where id=?'
   db.query(sql, req.user.id, (err, results) => {
     if (err) {
-      res.cc(err)
+      return res.cc(err)
     }
     if (results.length !== 1) {
-      res.cc('用户不存在！')
+      return res.cc('用户不存在！')
     }
     // 2. 用户存在 判断提交的旧密码正确与否
     const compareResult = bcrypt.compareSync(req.body.oldPwd, results[0].password)
@@ -65,12 +65,26 @@ export function updatePassword(req, res) {
     const sqlUpdate = 'update ev_users set password=? where id=?'
     db.query(sqlUpdate, [newPwd, req.user.id], (err, results) => {
       if (err) {
-        res.cc(err)
+        return res.cc(err)
       }
       if (results.affectedRows !== 1) {
-        res.cc('更新密码失败，请重试！')
+        return res.cc('更新密码失败，请重试！')
       }
       res.cc('更新密码成功！', 0)
     })
+  })
+}
+
+/* 更新用户头像处理函数 */
+export function updateAvater(req, res) {
+  const sql = 'update ev_users set user_pic=? where id=?'
+  db.query(sql, [req.body.avater, req.user.id], (err, results) => {
+    if (err) {
+      return res.cc(err)
+    }
+    if (results.affectedRows !== 1) {
+      return res.cc('更新头像失败！')
+    }
+    res.cc('更新头像成功', 0)
   })
 }

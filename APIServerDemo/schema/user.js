@@ -43,7 +43,20 @@ export let update_userinfo_schema = {
 // 更新密码的验证规则
 export let update_password_schema = {
   body: {
+    // 变量：已定义规则
     oldPwd: password,
+    // ref newPwd=oldPwd
+    // not newPwd!=oldPwd
+    // concat 规则合并
     newPwd: joi.not(joi.ref('oldPwd')).concat(password),
+  }
+}
+
+// 更新头像（图片）的验证规则
+// dataUri() 规则指定图片为base64格式的字符串，例如：data:image/png;base64,VE9PTUFOWVNFQ1JFVFM=
+const avater = joi.string().dataUri().required()
+export let update_avater_schema = {
+  body: {
+    avater,
   }
 }
