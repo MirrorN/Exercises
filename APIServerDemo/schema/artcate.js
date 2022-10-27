@@ -21,3 +21,10 @@ export let delete_cate_schema = {
   }
 }
 
+/* 根据id获取文章分类的规则 */
+export let get_cate_schema = {
+  params: {
+    id,
+  }
+}
+

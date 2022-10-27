@@ -52,7 +52,7 @@ export function addArticleCates(req, res) {
 }
 
 
-/* 删除文章分类(id) */
+/* 根据id删除文章分类 */
 export function deleteCateById(req, res) {
   const sql = 'update ev_article_cate set is_delete=1 where id=?'
   db.query(sql, req.params.id, (err, results) => {
@@ -63,5 +63,23 @@ export function deleteCateById(req, res) {
       return res.cc('删除失败！')
     }
     res.cc('删除文章分类成功！', 0)
+  })
+}
+
+/* 根据id获取文章分类数据 */
+export function getArticleById(req, res) {
+  const sql = 'select * from ev_article_cate where id=?'
+  db.query(sql, req.params.id, (err, results) => {
+    if (err) {
+      return res.cc(err)
+    }
+    if (results.length !== 1) {
+      return res.cc('获取分类数据失败！')
+    }
+    res.send({
+      status: 0,
+      data: results[0],
+      message: '获取文章分类成功！'
+    })
   })
 }

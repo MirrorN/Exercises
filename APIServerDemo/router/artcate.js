@@ -18,5 +18,10 @@ import { deleteCateById } from '../router_handler/artcate.js'
 import { delete_cate_schema } from '../schema/artcate.js'
 router.get('/deletecate/:id', expressJoi(delete_cate_schema), deleteCateById)
 
+/* 根据Id获取文章分类 */
+import { getArticleById } from '../router_handler/artcate.js'
+import { get_cate_schema } from '../schema/artcate.js'
+router.get('/cates/:id', expressJoi(get_cate_schema), getArticleById)
+
 
 export default router
