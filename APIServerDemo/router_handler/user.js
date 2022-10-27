@@ -6,7 +6,7 @@ import { jwtSecretKey, expiresIn } from '../config.js'
 
 
 
-// 按需导出
+/* 按需导出 注册逻辑 */
 export function regUser(req, res) {
   const userinfo = req.body
   // 1.检查注册信息是否合法

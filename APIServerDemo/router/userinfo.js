@@ -3,8 +3,9 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/userinfo', (req, res) => {
-  res.send('用户信息')
-})
+/* 挂载 */
+// 导入处理函数
+import { getUserinfo } from '../router_handler/userinfo.js'
+router.get('/userinfo', getUserinfo)
 
 export default router
