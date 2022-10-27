@@ -41,6 +41,10 @@ app.use('/api', userRouter)
 // 注册请求用户信息模块路由
 app.use('/my', userinfoRouter)
 
+// 注册获取文章类别路由模块
+import artCateRouter from './router/artcate.js'
+app.use('/my/article', artCateRouter)
+
 // 全局错误级别中间件
 app.use((err, req, res, next) => {
   // 验证失败导致的错误
