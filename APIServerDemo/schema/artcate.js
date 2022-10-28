@@ -28,3 +28,12 @@ export let get_cate_schema = {
   }
 }
 
+/* 根据id更新文章类别的规则 */
+export let update_cate_schema = {
+  body: {
+    Id: id,
+    name,
+    alias,
+  }
+}
+
